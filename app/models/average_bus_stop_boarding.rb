@@ -1,0 +1,2 @@
+class AverageBusStopBoarding < ApplicationRecord
+end
