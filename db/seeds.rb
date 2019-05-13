@@ -12,19 +12,25 @@ def seed_average_bus_stop_boardings
   boardings = []
 
   CSV.foreach(SOURCE_FILE, headers: true, converters: :all, header_converters: :symbol) do |row|
-    latitude, longitude = parse_coordinates(row[:location])
-    boardings << {
-      id: row[:stop_id],
-      on_street: row[:on_street],
-      cross_street: row[:cross_street],
-      routes: row[:routes],
-      boardings: row[:boardings],
-      alightings: row[:alightings],
-      month_beginning: row[:month_beginning],
-      daytype: row[:daytype],
-      latitude: latitude,
-      longitude: longitude
-    }
+    begin
+      latitude, longitude = parse_coordinates(row[:location])
+      boardings << {
+        id: row[:stop_id],
+        on_street: row[:on_street],
+        cross_street: row[:cross_street],
+        routes: row[:routes],
+        boardings: row[:boardings],
+        alightings: row[:alightings],
+        month_beginning: row[:month_beginning],
+        daytype: row[:daytype],
+        latitude: latitude,
+        longitude: longitude
+      }
+    rescue
+      # Whatever the error just keep going for the moment
+      puts "Invalid Row: #{row}"
+      next
+    end
   end
 
   AverageBusStopBoarding.create(boardings)
