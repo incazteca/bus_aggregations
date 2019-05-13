@@ -1,0 +1,2 @@
+class AverageBusStopBoardingsController < ApplicationController
+end
