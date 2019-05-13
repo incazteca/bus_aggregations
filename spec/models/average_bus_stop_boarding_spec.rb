@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe AverageBusStopBoarding, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to validate_presence_of :on_street }
+  it { is_expected.to validate_presence_of :cross_street }
+  it { is_expected.to validate_presence_of :routes }
+  it { is_expected.to validate_presence_of :boardings }
+  it { is_expected.to validate_presence_of :alightings }
+  it { is_expected.to validate_presence_of :month_beginning }
+  it { is_expected.to validate_presence_of :daytype }
+  it { is_expected.to validate_presence_of :longitude }
+  it { is_expected.to validate_presence_of :latitude }
 end
