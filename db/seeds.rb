@@ -1,7 +1,39 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# frozen_string_literal: true
+
+require 'csv'
+
+SOURCE_FILE = File.join(Rails.root, 'db', 'cta_ridership_2012.csv')
+
+def parse_coordinates(raw_coords)
+  raw_coords.slice(1..-2).split(',').map(&:to_f)
+end
+
+def seed_average_bus_stop_boardings
+  boardings = []
+
+  CSV.foreach(SOURCE_FILE, headers: true, converters: :all, header_converters: :symbol) do |row|
+    begin
+      latitude, longitude = parse_coordinates(row[:location])
+      boardings << {
+        id: row[:stop_id],
+        on_street: row[:on_street],
+        cross_street: row[:cross_street],
+        routes: row[:routes],
+        boardings: row[:boardings],
+        alightings: row[:alightings],
+        month_beginning: row[:month_beginning],
+        daytype: row[:daytype],
+        latitude: latitude,
+        longitude: longitude
+      }
+    rescue
+      # Whatever the error just keep going for the moment
+      puts "Invalid Row: #{row}"
+      next
+    end
+  end
+
+  AverageBusStopBoarding.create(boardings)
+end
+
+seed_average_bus_stop_boardings
