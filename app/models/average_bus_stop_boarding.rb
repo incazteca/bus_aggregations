@@ -10,4 +10,16 @@ class AverageBusStopBoarding < ApplicationRecord
   validates :daytype, presence: true
   validates :longitude, presence: true, numericality: true
   validates :latitude, presence: true, numericality: true
+
+  VALID_AGGREGATES = %i[count sum average minimum maximum].freeze
+
+  def self.route_aggregates(aggregate_function, field)
+    aggregate = aggregate_function.to_sym
+    col = field.to_sym
+
+    return unless VALID_AGGREGATES.include? aggregate
+    return unless columns.map { |column| column.name.to_sym }.include? col
+
+    group(:routes).calculate(aggregate, col)
+  end
 end
