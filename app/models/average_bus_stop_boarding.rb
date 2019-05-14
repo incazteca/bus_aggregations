@@ -14,6 +14,8 @@ class AverageBusStopBoarding < ApplicationRecord
   VALID_AGGREGATES = %i[count sum average minimum maximum].freeze
 
   def self.route_aggregates(aggregate_function, field)
+    return if aggregate_function.nil? || field.nil?
+
     aggregate = aggregate_function.to_sym
     col = field.to_sym
 
