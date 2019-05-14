@@ -2,7 +2,13 @@
 
 %div{id: 'route_aggregations', class: 'visualization_section'}
   %h2 Route Aggregations
-  %div{id: 'route_aggregation_visualization', class: 'visualization'}
-    = bar_chart route_aggregation_path
-  %div{class: 'route_aggregation_control'}
-    darp
+  = column_chart route_aggregation_path,
+    { id: 'route_agg_visualization',
+    class: 'visualization',
+    xtitle: 'Bus Route #',
+    ytitle: "#{@default_y}" }
+
+  = form_with url: root_path, method: :get, id: 'route_agg_control' do |form|
+    = form.label :field_to_aggregate
+    = select('column_to_aggregate', 'column', @fields_for_routes)
+    = form.submit

@@ -1,5 +1,7 @@
 class AverageBusStopBoardingsController < ApplicationController
   def index
+    @default_y = 'Boardings'
+    @fields_for_routes = %w[boardings alightings]
   end
 
   def route_aggregation
