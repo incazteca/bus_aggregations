@@ -6,9 +6,13 @@
     { id: 'route_agg_visualization',
     class: 'visualization',
     xtitle: 'Bus Route #',
-    ytitle: "#{@default_y}" }
+    ytitle: "#{@fields_for_routes.first.titleize}" }
 
   = form_with url: root_path, method: :get, id: 'route_agg_control' do |form|
     = form.label :field_to_aggregate
-    = select('column_to_aggregate', 'column', @fields_for_routes)
+    = select('aggregate_field', 'field', @fields_for_routes)
+    %br
+    = form.label :aggregation_function
+    = select('aggregate_function', 'function', @aggregation_functions)
+    %br
     = form.submit

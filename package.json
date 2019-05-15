@@ -1,5 +1,8 @@
 {
   "name": "civis",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
 }
