@@ -9,6 +9,7 @@ RSpec.describe AverageBusStopBoarding, type: :model do
 
   it { is_expected.to validate_presence_of :on_street }
   it { is_expected.to validate_presence_of :cross_street }
+  it { is_expected.to validate_presence_of :intersection }
   it { is_expected.to validate_presence_of :routes }
   it { is_expected.to validate_presence_of :boardings }
   it { is_expected.to validate_presence_of :alightings }

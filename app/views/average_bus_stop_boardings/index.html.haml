@@ -5,7 +5,7 @@
   = column_chart route_aggregation_path,
     { id: 'route_agg_visualization',
     class: 'visualization',
-    xtitle: 'Bus Route #',
+    xtitle: "#{@group_on_fields.first.titleize}",
     ytitle: "#{@fields_for_routes.first.titleize}" }
 
   = form_with url: root_path, method: :get, id: 'route_agg_control' do |form|
@@ -14,5 +14,8 @@
     %br
     = form.label :aggregation_function
     = select('aggregate_function', 'function', @aggregation_functions)
+    %br
+    = form.label :group_on_field
+    = select('group_on_field', 'field', @group_on_fields)
     %br
     = form.submit

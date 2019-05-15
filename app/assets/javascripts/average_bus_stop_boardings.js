@@ -20,7 +20,8 @@ function formData(aggregationForm) {
 
   const params = {
     'aggregate_function': raw_params['aggregate_function[function]'],
-    'aggregate_field': raw_params['aggregate_field[field]']
+    'aggregate_field': raw_params['aggregate_field[field]'],
+    'group_on_field': raw_params['group_on_field[field]']
   }
 
   return params;
@@ -33,6 +34,7 @@ function modifyChart(chart, formParams) {
 
   const options = chart.getOptions();
   options['ytitle']  = formParams['aggregate_field'];
+  options['xtitle']  = formParams['group_on_field'];
 
   chart.setOptions(options);
   chart.dataSource = updatedSource;
