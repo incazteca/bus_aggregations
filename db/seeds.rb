@@ -14,10 +14,13 @@ def seed_average_bus_stop_boardings
   CSV.foreach(SOURCE_FILE, headers: true, converters: :all, header_converters: :symbol) do |row|
     begin
       latitude, longitude = parse_coordinates(row[:location])
+      intersection = [row[:on_street], row[:cross_street]].sort.join(' & ').upcase
+
       boardings << {
         id: row[:stop_id],
         on_street: row[:on_street],
         cross_street: row[:cross_street],
+        intersection: intersection,
         routes: row[:routes],
         boardings: row[:boardings],
         alightings: row[:alightings],
@@ -26,7 +29,7 @@ def seed_average_bus_stop_boardings
         latitude: latitude,
         longitude: longitude
       }
-    rescue
+    rescue StandardError
       # Whatever the error just keep going for the moment
       puts "Invalid Row: #{row}"
       next
