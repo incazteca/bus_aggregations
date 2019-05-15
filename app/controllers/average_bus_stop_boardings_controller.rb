@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
 class AverageBusStopBoardingsController < ApplicationController
-  AGGREGATION_FUNCTIONS = %w[count sum average minimum maximum].freeze
-  AGGREGATION_FIELDS = %w[boardings alightings].freeze
-  GROUP_ON_FIELDS = %w[routes intersection].freeze
-
   def index
-    @fields_for_routes = AGGREGATION_FIELDS
-    @aggregation_functions = AGGREGATION_FUNCTIONS
-    @group_on_fields = GROUP_ON_FIELDS
+    @fields_for_routes = AverageBusStopBoarding::AGGREGATION_FIELDS
+    @aggregation_functions = AverageBusStopBoarding::AGGREGATION_FUNCTIONS
+    @group_on_fields = AverageBusStopBoarding::GROUP_ON_FIELDS
   end
 
   def route_aggregation
-    aggr_func = params[:aggregate_function] || AGGREGATION_FUNCTIONS.first
-    field = params[:aggregate_field] || AGGREGATION_FIELDS.first
-    group_on = params[:group_on_field] || GROUP_ON_FIELDS.first
+    aggr_func = params[:aggregate_function] || AverageBusStopBoarding::AGGREGATION_FUNCTIONS.first
+    field = params[:aggregate_field] || AverageBusStopBoarding::AGGREGATION_FIELDS.first
+    group_on = params[:group_on_field] || AverageBusStopBoarding::GROUP_ON_FIELDS.first
+    offset = params[:offset] || 0
+    limit = params[:limit] || 20
 
     render json: AverageBusStopBoarding.route_aggregates(
       aggr_func, field, group_on
-    )
+    )&.slice(offset..offset + limit)
   end
 
   private

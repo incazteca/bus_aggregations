@@ -11,7 +11,10 @@ class AverageBusStopBoarding < ApplicationRecord
   validates :longitude, presence: true, numericality: true
   validates :latitude, presence: true, numericality: true
 
-  VALID_AGGREGATES = %i[count sum average minimum maximum].freeze
+  AGGREGATION_FUNCTIONS = %w[count sum average minimum maximum].freeze
+  AGGREGATION_FIELDS = %w[boardings alightings].freeze
+  GROUP_ON_FIELDS = %w[routes intersection].freeze
+
 
   def self.route_aggregates(aggregate_function, field, group_on)
     return if aggregate_function.nil? || field.nil? || group_on.nil?
@@ -20,7 +23,7 @@ class AverageBusStopBoarding < ApplicationRecord
     col = field.to_sym
     group_field = group_on.to_sym
 
-    return unless VALID_AGGREGATES.include? aggregate
+    return unless AGGREGATION_FUNCTIONS.include? aggregate
     return unless columns.map { |column| column.name.to_sym }.include? col
 
     # The minus is used to sort_by in descending order
