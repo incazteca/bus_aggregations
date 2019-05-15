@@ -23,6 +23,7 @@ class AverageBusStopBoarding < ApplicationRecord
     return unless VALID_AGGREGATES.include? aggregate
     return unless columns.map { |column| column.name.to_sym }.include? col
 
-    group(group_field).calculate(aggregate, col)
+    # The minus is used to sort_by in descending order
+    group(group_field).calculate(aggregate, col).sort_by { |_, v| -v }.to_a
   end
 end
