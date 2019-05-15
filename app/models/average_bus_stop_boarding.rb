@@ -13,15 +13,16 @@ class AverageBusStopBoarding < ApplicationRecord
 
   VALID_AGGREGATES = %i[count sum average minimum maximum].freeze
 
-  def self.route_aggregates(aggregate_function, field)
-    return if aggregate_function.nil? || field.nil?
+  def self.route_aggregates(aggregate_function, field, group_on)
+    return if aggregate_function.nil? || field.nil? || group_on.nil?
 
     aggregate = aggregate_function.to_sym
     col = field.to_sym
+    group_field = group_on.to_sym
 
     return unless VALID_AGGREGATES.include? aggregate
     return unless columns.map { |column| column.name.to_sym }.include? col
 
-    group(:routes).calculate(aggregate, col)
+    group(group_field).calculate(aggregate, col)
   end
 end
