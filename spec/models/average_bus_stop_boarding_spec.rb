@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe AverageBusStopBoarding, type: :model do
-  it { is_expected.to validate_numericality_of :routes }
   it { is_expected.to validate_numericality_of :boardings }
   it { is_expected.to validate_numericality_of :alightings }
   it { is_expected.to validate_numericality_of :longitude }

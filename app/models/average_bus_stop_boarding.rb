@@ -3,7 +3,7 @@
 class AverageBusStopBoarding < ApplicationRecord
   validates :on_street, presence: true
   validates :cross_street, presence: true
-  validates :routes, presence: true, numericality: true
+  validates :routes, presence: true
   validates :boardings, presence: true, numericality: true
   validates :alightings, presence: true, numericality: true
   validates :month_beginning, presence: true
