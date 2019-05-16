@@ -40,12 +40,12 @@ RSpec.describe AverageBusStopBoardingsController, type: :controller do
       create(:harlem_route, cross_street: 'IRVING PARK', boardings: 20, alightings: 10)
     end
 
-    it 'gets aggregation on routes' do
+    it 'gets count aggregation on routes' do
       get :aggregation, params: default_params
       expect(JSON.parse(@response.body)).to eq [['152', 4], ['90', 2]]
     end
 
-    it 'gets aggregation on intersection' do
+    it 'gets count aggregation on intersection' do
       intersection_params = default_params.deep_dup
       intersection_params[:aggregate][:group] = 'intersection'
 
@@ -57,6 +57,15 @@ RSpec.describe AverageBusStopBoardingsController, type: :controller do
         ['ADDISON & OAK PARK', 1],
         ['HARLEM & IRVING PARK', 1]
       ]
+    end
+
+    it 'gets maximum aggregation on routes' do
+      max_params = default_params.deep_dup
+      max_params[:aggregate][:function] = 'maximum'
+      create(:average_bus_stop_boarding,  boardings: 40, alightings: 30)
+
+      get :aggregation, params: max_params
+      expect(JSON.parse(@response.body)).to eq [['90', 60], ['152', 40], ['77', 40]]
     end
   end
 end
