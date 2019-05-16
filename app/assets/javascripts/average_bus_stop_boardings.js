@@ -12,16 +12,14 @@ function updateRouteAggregation(event) {
 
 function formData(aggregationForm) {
   const elems = aggregationForm.elements;
-  let raw_params = {};
+  let params = {};
 
   for (let i=0; i < elems.length; i++) {
-    raw_params[elems[i].name] = elems[i].value;
-  }
+    let elem = elems[i];
 
-  const params = {
-    'aggregate_function': raw_params['aggregate_function[function]'],
-    'aggregate_field': raw_params['aggregate_field[field]'],
-    'group_on_field': raw_params['group_on_field[field]']
+    if (elem.name.includes('aggregate')) {
+      params[elem.name] = elem.value;
+    }
   }
 
   return params;
@@ -33,8 +31,8 @@ function modifyChart(chart, formParams) {
   const updatedSource = sourcePath + '?' + searchParams.toString();
 
   const options = chart.getOptions();
-  options['ytitle']  = formParams['aggregate_field'];
-  options['xtitle']  = formParams['group_on_field'];
+  options['ytitle']  = formParams['aggregate[field]'];
+  options['xtitle']  = formParams['aggregate[group]'];
 
   chart.setOptions(options);
   chart.dataSource = updatedSource;
