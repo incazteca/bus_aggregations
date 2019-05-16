@@ -1,21 +1,27 @@
 %h1 Average Bus Stop Boardings for October 2012 Weekdays
 
 %div{id: 'route_aggregations', class: 'visualization_section'}
-  %h2 Route Aggregations
-  = column_chart route_aggregation_path,
+  %h2 Bus Stop Aggregations
+  = column_chart aggregation_path(@default_params),
     { id: 'route_agg_visualization',
     class: 'visualization',
-    xtitle: "#{@group_on_fields.first.titleize}",
-    ytitle: "#{@fields_for_routes.first.titleize}" }
+    xtitle: "#{@default_params[:aggregate][:group].titleize}",
+    ytitle: "#{@default_params[:aggregate][:field].titleize}" }
 
   = form_with url: root_path, method: :get, id: 'route_agg_control' do |form|
     = form.label :field_to_aggregate
-    = select('aggregate_field', 'field', @fields_for_routes)
+    = select('aggregate', 'field', @aggregate_fields)
     %br
     = form.label :aggregation_function
-    = select('aggregate_function', 'function', @aggregation_functions)
+    = select('aggregate', 'function', @aggregate_functions)
     %br
     = form.label :group_on_field
-    = select('group_on_field', 'field', @group_on_fields)
+    = select('aggregate', 'group', @aggregate_groups)
+    %br
+    = form.label :limit
+    = select('aggregate', 'limit', @aggregate_limits)
+    %br
+    = form.label :offset
+    = number_field('aggregate', 'offset', min: 0, value: 0)
     %br
     = form.submit

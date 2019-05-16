@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :average_bus_stop_boardings, only: %i[index]
 
   get(
-    'average_bus_stop_boardings/route_aggregation',
-    to: 'average_bus_stop_boardings#route_aggregation',
-    as: 'route_aggregation'
+    'average_bus_stop_boardings/aggregation',
+    to: 'average_bus_stop_boardings#aggregation',
+    as: 'aggregation'
   )
 end
