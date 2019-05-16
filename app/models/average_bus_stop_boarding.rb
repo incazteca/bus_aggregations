@@ -16,7 +16,7 @@ class AverageBusStopBoarding < ApplicationRecord
   GROUP_ON_FIELDS = %w[routes intersection].freeze
 
 
-  def self.route_aggregates(aggregate_function, field, group_on)
+  def self.aggregate(aggregate_function, field, group_on)
     return if aggregate_function.nil? || field.nil? || group_on.nil?
 
     aggregate = aggregate_function.to_sym

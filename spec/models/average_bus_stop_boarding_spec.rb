@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'shared_examples_for_aggregation'
 
 RSpec.describe AverageBusStopBoarding, type: :model do
   it { is_expected.to validate_numericality_of :routes }
@@ -18,7 +19,7 @@ RSpec.describe AverageBusStopBoarding, type: :model do
   it { is_expected.to validate_presence_of :longitude }
   it { is_expected.to validate_presence_of :latitude }
 
-  describe '.route_aggregates' do
+  describe '.aggregate' do
     before do
       create(:addison_route, cross_street: 'HARLEM', boardings: 40, alightings: 5)
       create(:addison_route, cross_street: 'OAK PARK', boardings: 30, alightings: 10)
@@ -28,5 +29,7 @@ RSpec.describe AverageBusStopBoarding, type: :model do
       create(:harlem_route, cross_street: 'ADDISON', boardings: 75, alightings: 20)
       create(:harlem_route, cross_street: 'IRVING PARK', boardings: 25, alightings: 30)
     end
+
+    it_behaves_like 'aggregates record', :count, :boardings, :routes, [{ '156' => 4 }, { '80' => 2 }]
   end
 end
