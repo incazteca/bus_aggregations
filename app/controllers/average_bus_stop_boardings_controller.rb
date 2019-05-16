@@ -2,9 +2,9 @@
 
 class AverageBusStopBoardingsController < ApplicationController
   def index
-    @fields_for_routes = AverageBusStopBoarding::AGGREGATION_FIELDS
-    @aggregation_functions = AverageBusStopBoarding::AGGREGATION_FUNCTIONS
-    @group_on_fields = AverageBusStopBoarding::GROUP_ON_FIELDS
+    @fields_for_routes = AverageBusStopBoarding::AGGREGATION_FIELDS.map(&:to_s)
+    @aggregation_functions = AverageBusStopBoarding::AGGREGATION_FUNCTIONS.map(&:to_s)
+    @group_on_fields = AverageBusStopBoarding::GROUP_ON_FIELDS.map(&:to_s)
   end
 
   def route_aggregation
@@ -14,7 +14,7 @@ class AverageBusStopBoardingsController < ApplicationController
     offset = params[:offset] || 0
     limit = params[:limit] || 20
 
-    render json: AverageBusStopBoarding.route_aggregates(
+    render json: AverageBusStopBoarding.aggregate(
       aggr_func, field, group_on
     )&.slice(offset..offset + limit)
   end

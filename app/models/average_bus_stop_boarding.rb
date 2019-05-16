@@ -29,6 +29,6 @@ class AverageBusStopBoarding < ApplicationRecord
     return unless GROUP_ON_FIELDS.include? group_field
 
     # The minus is used to sort_by in descending order
-    group(group_field).calculate(aggregate, col).sort_by { |_, v| -v }.to_a
+    group(group_field).calculate(aggregate, col).sort_by { |k, v| [-v, k] }
   end
 end
