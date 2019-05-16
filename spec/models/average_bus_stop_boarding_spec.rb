@@ -82,6 +82,40 @@ RSpec.describe AverageBusStopBoarding, type: :model do
       ['ADDISON & OAK PARK', 10],
       ['HARLEM & IRVING PARK', 10]
     ]
+
+    it_behaves_like 'aggregates record', :minimum, :boardings, :routes, [['90', 20], ['152', 10]]
+    it_behaves_like 'aggregates record', :minimum, :alightings, :routes, [['90', 10], ['152', 5]]
+    it_behaves_like 'aggregates record', :minimum, :boardings, :intersection, [
+      ['ADDISON & HARLEM', 40],
+      ['ADDISON & OAK PARK', 30],
+      ['ADDISON & NORMANDY', 20],
+      ['HARLEM & IRVING PARK', 20],
+      ['ADDISON & NEENAH', 10]
+    ]
+    it_behaves_like 'aggregates record', :minimum, :alightings, :intersection, [
+      ['ADDISON & NEENAH', 20],
+      ['ADDISON & NORMANDY', 15],
+      ['ADDISON & OAK PARK', 10],
+      ['HARLEM & IRVING PARK', 10],
+      ['ADDISON & HARLEM', 5]
+    ]
+
+    it_behaves_like 'aggregates record', :maximum, :boardings, :routes, [['90', 60], ['152', 40]]
+    it_behaves_like 'aggregates record', :maximum, :alightings, :routes, [['90', 30], ['152', 20]]
+    it_behaves_like 'aggregates record', :maximum, :boardings, :intersection, [
+      ['ADDISON & HARLEM', 60],
+      ['ADDISON & OAK PARK', 30],
+      ['ADDISON & NORMANDY', 20],
+      ['HARLEM & IRVING PARK', 20],
+      ['ADDISON & NEENAH', 10]
+    ]
+    it_behaves_like 'aggregates record', :maximum, :alightings, :intersection, [
+      ['ADDISON & HARLEM', 30],
+      ['ADDISON & NEENAH', 20],
+      ['ADDISON & NORMANDY', 15],
+      ['ADDISON & OAK PARK', 10],
+      ['HARLEM & IRVING PARK', 10]
+    ]
   end
   # rubocop:enable Metrics/BlockLength, Metrics/LineLength
 end
