@@ -33,16 +33,16 @@ RSpec.describe AverageBusStopBoarding, type: :model do
     it_behaves_like 'aggregates record', :count, :alightings, :routes, [['152', 4], ['90', 2]]
     it_behaves_like 'aggregates record', :count, :boardings, :intersection, [
       ['ADDISON & HARLEM', 2],
-      ['ADDISON & OAK PARK', 1],
-      ['ADDISON & NORMANDY', 1],
       ['ADDISON & NEENAH', 1],
+      ['ADDISON & NORMANDY', 1],
+      ['ADDISON & OAK PARK', 1],
       ['HARLEM & IRVING PARK', 1]
     ]
     it_behaves_like 'aggregates record', :count, :alightings, :intersection, [
       ['ADDISON & HARLEM', 2],
-      ['ADDISON & OAK PARK', 1],
-      ['ADDISON & NORMANDY', 1],
       ['ADDISON & NEENAH', 1],
+      ['ADDISON & NORMANDY', 1],
+      ['ADDISON & OAK PARK', 1],
       ['HARLEM & IRVING PARK', 1]
     ]
 
@@ -50,9 +50,9 @@ RSpec.describe AverageBusStopBoarding, type: :model do
     it_behaves_like 'aggregates record', :count, :alightings, :routes, [['152', 4], ['90', 2]]
     it_behaves_like 'aggregates record', :count, :boardings, :intersection, [
       ['ADDISON & HARLEM', 2],
-      ['ADDISON & OAK PARK', 1],
-      ['ADDISON & NORMANDY', 1],
       ['ADDISON & NEENAH', 1],
+      ['ADDISON & NORMANDY', 1],
+      ['ADDISON & OAK PARK', 1],
       ['HARLEM & IRVING PARK', 1]
     ]
     it_behaves_like 'aggregates record', :count, :alightings, :intersection, [

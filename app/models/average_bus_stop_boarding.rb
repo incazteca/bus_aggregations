@@ -16,7 +16,6 @@ class AverageBusStopBoarding < ApplicationRecord
   AGGREGATION_FIELDS = %i[boardings alightings].freeze
   GROUP_ON_FIELDS = %i[routes intersection].freeze
 
-
   def self.aggregate(aggregate_function, field, group_on)
     return if aggregate_function.nil? || field.nil? || group_on.nil?
 
