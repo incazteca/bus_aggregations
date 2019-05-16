@@ -21,7 +21,7 @@ FactoryBot.define do
       routes { 90 }
     end
 
-    facory :addison_route, traits: %i[addison]
-    facory :harlem_route, traits: %i[harlem]
+    factory :addison_route, traits: %i[addison]
+    factory :harlem_route, traits: %i[harlem]
   end
 end

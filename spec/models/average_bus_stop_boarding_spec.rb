@@ -26,10 +26,43 @@ RSpec.describe AverageBusStopBoarding, type: :model do
       create(:addison_route, cross_street: 'NORMANDY', boardings: 20, alightings: 15)
       create(:addison_route, cross_street: 'NEENAH', boardings: 10, alightings: 20)
 
-      create(:harlem_route, cross_street: 'ADDISON', boardings: 75, alightings: 20)
-      create(:harlem_route, cross_street: 'IRVING PARK', boardings: 25, alightings: 30)
+      create(:harlem_route, cross_street: 'ADDISON', boardings: 60, alightings: 30)
+      create(:harlem_route, cross_street: 'IRVING PARK', boardings: 20, alightings: 10)
     end
 
-    it_behaves_like 'aggregates record', :count, :boardings, :routes, [{ '156' => 4 }, { '80' => 2 }]
+    it_behaves_like 'aggregates record', :count, :boardings, :routes, [['152', 4], ['90', 2]]
+    it_behaves_like 'aggregates record', :count, :alightings, :routes, [['152', 4], ['90', 2]]
+    it_behaves_like 'aggregates record', :count, :boardings, :intersection, [
+      ['ADDISON & HARLEM', 2],
+      ['ADDISON & OAK PARK', 1],
+      ['ADDISON & NORMANDY', 1],
+      ['ADDISON & NEENAH', 1],
+      ['HARLEM & IRVING PARK', 1]
+    ]
+    it_behaves_like 'aggregates record', :count, :alightings, :intersection, [
+      ['ADDISON & HARLEM', 2],
+      ['ADDISON & OAK PARK', 1],
+      ['ADDISON & NORMANDY', 1],
+      ['ADDISON & NEENAH', 1],
+      ['HARLEM & IRVING PARK', 1]
+    ]
+
+    it_behaves_like 'aggregates record', :count, :boardings, :routes, [['152', 4], ['90', 2]]
+    it_behaves_like 'aggregates record', :count, :alightings, :routes, [['152', 4], ['90', 2]]
+    it_behaves_like 'aggregates record', :count, :boardings, :intersection, [
+      ['ADDISON & HARLEM', 2],
+      ['ADDISON & OAK PARK', 1],
+      ['ADDISON & NORMANDY', 1],
+      ['ADDISON & NEENAH', 1],
+      ['HARLEM & IRVING PARK', 1]
+    ]
+    it_behaves_like 'aggregates record', :count, :alightings, :intersection, [
+      ['ADDISON & HARLEM', 2],
+      ['ADDISON & OAK PARK', 1],
+      ['ADDISON & NORMANDY', 1],
+      ['ADDISON & NEENAH', 1],
+      ['HARLEM & IRVING PARK', 1]
+    ]
+
   end
 end
