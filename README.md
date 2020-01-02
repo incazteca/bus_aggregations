@@ -1,24 +1,21 @@
-# README
+# Bus Aggregations
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Display data regarding [CTA bus stop boardings in October, 2012](
+https://data.cityofchicago.org/Transportation/CTA-Ridership-Avg-Weekday-Bus-Stop-Boardings-in-Oc/mq3i-nnqe
+)
 
-Things you may want to cover:
+Setup by having postgres installed and running:
 
-* Ruby version
+```console
+$ bundle exec rails db:setup
+$ bundle exec rails s
+```
 
-* System dependencies
+tests can be run with
 
-* Configuration
+```console
+$ bundle exec rspec
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Screenshot
+![Application Screenshot](/screenshots/bus_stop_boardings.png)
